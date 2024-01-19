@@ -5,7 +5,7 @@ import subprocess
 DAEMON_NAME="daemon.py"
 THIEF_NAME="thief.txt.py"
 DAEMON_PATH="D:\\vscode\\SYSTEM\\daemon.py"
-THIEF_PATH="D:\\vscode\\SYSTEM\\thief.py"
+THIEF_PATH="D:\\vscode\\SYSTEM\\thief.txt.py"
 ROOT_PATH="D:\\vscode\\SYSTEM\\"
 
 class computer:

