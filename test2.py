@@ -1,2 +1,2 @@
-import psutil
-print(psutil.disk_partitions())
+import os
+print(os.getcwd())
